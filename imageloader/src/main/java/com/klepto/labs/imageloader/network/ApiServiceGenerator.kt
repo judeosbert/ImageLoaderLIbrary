@@ -16,7 +16,7 @@ class ApiServiceGenerator{
             val httpClient = OkHttpClient.Builder()
             httpClient.addInterceptor(loggingInterceptor)
             val retrofit = Retrofit.Builder()
-                .baseUrl("https:www.google.com/")
+                .baseUrl("https:www.sample.com/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClient.build())
                 .build()

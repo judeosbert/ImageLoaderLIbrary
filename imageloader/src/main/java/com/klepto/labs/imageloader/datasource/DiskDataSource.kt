@@ -5,8 +5,9 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Environment
 import android.util.Log
-import com.klepto.labs.imageloader.model.NetworkStatus
+import com.klepto.labs.imageloader.model.Status
 import com.klepto.labs.imageloader.model.ResponseModel
+import com.klepto.labs.imageloader.model.SOURCE_DISK
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import org.koin.core.KoinComponent
@@ -17,9 +18,9 @@ import java.io.FileOutputStream
 
 class DiskDataSource(private val appContext:Context):KoinComponent, BaseDataSource() {
 
-    val mMemoryCache by inject<MemoryDataSource>()
+    private val mMemoryCache by inject<MemoryDataSource>()
     private val DISK_CACHE_SUBDIR = "thumbnails"
-    val cacheDir:File
+    private val cacheDir:File
     init {
         cacheDir = getDiskCacheDir(appContext,DISK_CACHE_SUBDIR)
     }
@@ -33,7 +34,7 @@ class DiskDataSource(private val appContext:Context):KoinComponent, BaseDataSour
                 val file = File(cacheDir, getFileName(key))
                 val bitmap = BitmapFactory.decodeFile(file.path)
                 mMemoryCache.put(key, bitmap)
-                val responseModel = ResponseModel(-1,bitmap,NetworkStatus.SUCCESS)
+                val responseModel = ResponseModel(SOURCE_DISK,bitmap,Status.SUCCESS)
                 it.onNext(responseModel)
             }
             it.onComplete()

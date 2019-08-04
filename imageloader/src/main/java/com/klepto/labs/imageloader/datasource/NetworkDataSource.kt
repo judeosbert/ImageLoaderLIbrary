@@ -1,8 +1,9 @@
 package com.klepto.labs.imageloader.datasource
 
 import android.graphics.BitmapFactory
-import com.klepto.labs.imageloader.model.NetworkStatus
+import com.klepto.labs.imageloader.model.Status
 import com.klepto.labs.imageloader.model.ResponseModel
+import com.klepto.labs.imageloader.model.SOURCE_NET
 import com.klepto.labs.imageloader.network.services.ApiService
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -22,7 +23,7 @@ class NetworkDataSource:BaseDataSource(),KoinComponent {
                 .subscribeBy(
                     onNext = {
                         val bitmap = BitmapFactory.decodeStream(it.byteStream())
-                        val responseModel = ResponseModel(-1,bitmap, NetworkStatus.SUCCESS)
+                        val responseModel = ResponseModel(SOURCE_NET,bitmap, Status.SUCCESS)
                         returnSubject.onNext(responseModel)
                     },
                     onComplete = {

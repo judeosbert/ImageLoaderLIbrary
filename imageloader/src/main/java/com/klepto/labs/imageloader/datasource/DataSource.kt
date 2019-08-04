@@ -8,9 +8,13 @@ import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 
 class DataSource(private val context: Context):KoinComponent {
-    private val memoryDataSource:MemoryDataSource by inject()
-    private val diskDataSource: DiskDataSource by inject {parametersOf(context)}
-    private val networkDataSource: NetworkDataSource by inject()
+     private val memoryDataSource:MemoryDataSource by inject()
+     private val diskDataSource: DiskDataSource by inject {parametersOf(context)}
+     private val networkDataSource: NetworkDataSource by inject()
+
+    fun isPresentInMemory(key:String):Boolean = memoryDataSource.hasData(key)
+
+    fun isPresentInDisk(key:String):Boolean = diskDataSource.hasData(key)
 
     fun getDataFromMemory(key:String): Observable<ResponseModel> {return memoryDataSource.getData(key)}
 
