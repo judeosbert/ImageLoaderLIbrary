@@ -8,15 +8,12 @@ import android.util.Log
 import com.klepto.labs.imageloader.model.NetworkStatus
 import com.klepto.labs.imageloader.model.ResponseModel
 import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.io.ByteArrayOutputStream
-
 import java.io.File
 import java.io.FileOutputStream
-import java.net.URLEncoder
 
 class DiskDataSource(private val appContext:Context):KoinComponent, BaseDataSource() {
 

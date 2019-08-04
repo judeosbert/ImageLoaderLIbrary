@@ -3,6 +3,7 @@ package com.klepto.labs.imageloader
 import android.content.Context
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.Observer
 import com.klepto.labs.imageloader.di.appModule
 import com.klepto.labs.imageloader.model.NetworkStatus
@@ -26,6 +27,7 @@ class ImageLoader( private var context:Context?,
 
             }
         }
+
     }
 
 

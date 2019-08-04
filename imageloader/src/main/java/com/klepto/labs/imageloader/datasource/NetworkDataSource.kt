@@ -1,6 +1,5 @@
 package com.klepto.labs.imageloader.datasource
 
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.klepto.labs.imageloader.model.NetworkStatus
 import com.klepto.labs.imageloader.model.ResponseModel

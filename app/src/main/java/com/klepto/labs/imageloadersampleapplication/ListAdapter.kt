@@ -8,8 +8,12 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.klepto.labs.imageloader.ImageLoader
 
-class ListAdapter:RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
-    val urls:List<String> = createList()
+class ListAdapter(val onClicked:(url:String)->Unit):RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
+    var urls:List<String> = mutableListOf()
+    set(value) {
+        field = value
+        notifyDataSetChanged()
+    }
     private lateinit var mContext:Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         mContext = parent.context
@@ -23,19 +27,13 @@ class ListAdapter:RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         ImageLoader.Builder()
             .with(mContext)
-            .load(urls.get(position))
+            .load(urls[position])
             .into(holder.imageHolder)
+        holder.imageHolder.setOnClickListener { onClicked(urls[position]) }
+
     }
 
     inner class MyViewHolder(view: View):RecyclerView.ViewHolder(view){
         val imageHolder:ImageView = view.findViewById(R.id.imageView)
-    }
-
-    private fun createList(): MutableList<String> {
-        val list = mutableListOf<String>()
-        for(i in (1..20)){
-            list.add("https://picsum.photos/200/300?random=$i")
-        }
-        return list
     }
 }
