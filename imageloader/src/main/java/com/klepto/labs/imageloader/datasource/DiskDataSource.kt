@@ -57,18 +57,13 @@ class DiskDataSource(private val appContext:Context):KoinComponent, BaseDataSour
             .subscribe {
                 Log.d("IMAGE_TAG","Memory cache Complete")
             }
-
-
-
     }
-
-
-
+    
     private fun getDiskCacheDir(context: Context, uniqueName:String): File {
 
         val cachePath =
             if(Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()
-            || Environment.isExternalStorageRemovable()){
+            || !Environment.isExternalStorageRemovable()){
                 context.externalCacheDir.path
         }else{
                 context.cacheDir.path
